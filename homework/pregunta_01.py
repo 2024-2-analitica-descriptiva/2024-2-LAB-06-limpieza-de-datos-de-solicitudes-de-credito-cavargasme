@@ -38,8 +38,10 @@ def pregunta_01():
     df.tipo_de_emprendimiento = df.tipo_de_emprendimiento.astype('category')        
 
     # Columna idea_negocio
-    df.idea_negocio = df.idea_negocio.str.lower().str.strip('_').str.strip('-').str.strip().str.replace('_',' ').str.replace('-',' ')
-    df.idea_negocio = df.idea_negocio.astype('category')
+    df.idea_negocio = df.idea_negocio.str.lower()
+    df.idea_negocio =df.idea_negocio.replace('-',' ', regex=True)
+    df.idea_negocio =df.idea_negocio.replace('_',' ', regex=True)   
+    df.idea_negocio = df.idea_negocio.str.strip()
 
     # Columna barrio
 
