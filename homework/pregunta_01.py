@@ -45,7 +45,7 @@ def pregunta_01():
 
     # Columna barrio
 
-    df.barrio = df.barrio.str.lower().str.replace('_','-').str.replace("-", " ").str.strip()    
+    df.barrio = df.barrio.str.lower().str.replace(r'\.', ' ', regex=True).str.replace('_',' ').str.replace("-", " ")   
 
     # Columna comuna_ciudadano
     df.comuna_ciudadano = df.comuna_ciudadano.astype('Int64')
