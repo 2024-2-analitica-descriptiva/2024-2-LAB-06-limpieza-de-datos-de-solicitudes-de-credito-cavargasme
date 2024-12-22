@@ -16,7 +16,7 @@ def pregunta_01():
     El archivo limpio debe escribirse en "files/output/solicitudes_de_credito.csv"
 
     """
-    file_path = "files/input/solicitudes_credito.csv"
+    file_path = "files/input/solicitudes_de_credito.csv"
     df = pd.read_csv(file_path, sep = ";")
 
     df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
