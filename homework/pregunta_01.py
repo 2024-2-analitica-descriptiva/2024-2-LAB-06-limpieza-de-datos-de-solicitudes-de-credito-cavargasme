@@ -16,7 +16,8 @@ def pregunta_01():
     El archivo limpio debe escribirse en "files/output/solicitudes_de_credito.csv"
 
     """
-    df = pd.read_csv("./files/input/solicitudes_credito.csv", sep = ";")
+    file_path = "files/input/solicitudes_credito.csv"
+    df = pd.read_csv(file_path, sep = ";")
 
     df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
     df.set_index('index', inplace=True)
@@ -54,12 +55,10 @@ def pregunta_01():
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True) 
 
-    ruta_archivo = "./files/output/solicitudes_de_credito.csv"
+    ruta_archivo = "files/output"
+    os.makedirs(ruta_archivo, exist_ok=True)
 
-    directorio = os.path.dirname(ruta_archivo)
-    if directorio: 
-        os.makedirs(directorio, exist_ok=True)
-
-    df.to_csv(ruta_archivo, sep=";", index=False, encoding='utf-8')
+    output_file = f"{ruta_archivo}/solicitudes_de_credito.csv"
+    df.to_csv(output_file, sep= ";", index = False)
 
     return df   
