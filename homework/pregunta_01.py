@@ -16,8 +16,14 @@ def pregunta_01():
     El archivo limpio debe escribirse en "files/output/solicitudes_de_credito.csv"
 
     """
-    file_path = "files/input/solicitudes_de_credito.csv"
+    import pandas as pd
+    import os
+
+    file_path = "solicitudes_credito.csv"
     df = pd.read_csv(file_path, sep = ";")
+
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
 
     df.rename(columns={'Unnamed: 0': 'index'}, inplace=True)
     df.set_index('index', inplace=True)
@@ -37,7 +43,7 @@ def pregunta_01():
 
     # Columna barrio
 
-    df.barrio = df.barrio.str.lower().str.replace('_','-').str.replace("-", " ")    
+    df.barrio = df.barrio.str.lower().str.replace('_','-').str.replace("-", " ").str.strip()    
 
     # Columna comuna_ciudadano
     df.comuna_ciudadano = df.comuna_ciudadano.astype('Int64')
@@ -48,17 +54,19 @@ def pregunta_01():
 
     # Columna monto_del_credito
     df.monto_del_credito = df.monto_del_credito.str.replace('$','').str.replace(',','')
+    df.monto_del_credito = df.monto_del_credito.astype(float).astype(int)
 
     # Columna línea_credito
-    df.línea_credito = df.línea_credito.str.lower().str.strip('_').str.strip('-').str.strip().str.replace('_',' ').str.replace('-', ' ')   
+    df.línea_credito = df.línea_credito.str.lower().str.strip('_').str.strip('-').str.strip().str.replace('_',' ').str.replace('-', ' ') 
+        
 
     df.dropna(inplace=True)
-    df.drop_duplicates(inplace=True) 
+    df.drop_duplicates(inplace=True)
 
-    ruta_archivo = "files/output"
-    os.makedirs(ruta_archivo, exist_ok=True)
+    output_file = 'files/output'
+    os.makedirs(output_file, exist_ok=True)
 
-    output_file = f"{ruta_archivo}/solicitudes_de_credito.csv"
-    df.to_csv(output_file, sep= ";", index = False)
+    output_path = f'{output_file}/solicitudes_de_credito.csv'
+    df.to_csv(output_path, sep=';', index=False)     
 
-    return df   
+    return df            
