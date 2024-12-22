@@ -4,6 +4,7 @@ Escriba el codigo que ejecute la accion solicitada en la pregunta.
 
 
 import pandas as pd 
+import os 
 
 def pregunta_01():
     """
@@ -52,5 +53,13 @@ def pregunta_01():
 
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True) 
+
+    ruta_archivo = "./files/output/solicitudes_de_credito.csv"
+
+    directorio = os.path.dirname(ruta_archivo)
+    if directorio: 
+        os.makedirs(directorio, exist_ok=True)
+
+    df.to_csv(ruta_archivo, sep=";", index=False, encoding='utf-8')
 
     return df   
