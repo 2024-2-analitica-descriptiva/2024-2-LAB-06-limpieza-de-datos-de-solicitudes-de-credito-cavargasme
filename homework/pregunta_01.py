@@ -19,7 +19,7 @@ def pregunta_01():
     import pandas as pd
     import os
 
-    file_path = "solicitudes_de_credito.csv"
+    file_path = "./files/input/solicitudes_de_credito.csv"
     df = pd.read_csv(file_path, sep = ";")
 
     df.dropna(inplace=True)
